@@ -2,10 +2,12 @@ import numpy as np
 import pandas as pd
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import scipy.stats
 from pandas import DataFrame as df
 from scipy.stats import ttest_rel
 from sklearn.metrics import roc_curve, auc
 from scipy.integrate import simps
+from tableone import TableOne
 
 data = pd.read_excel("./data/Data.xlsx")
 data = data[:26]
@@ -333,51 +335,68 @@ Threshold 구하기
 # plt.subplots_adjust(hspace=0.3, wspace=0.2)
 # plt.show()
 
-def paired_t_test_with_visualization(opt):
-    tag = []
-    label = ""
-    if opt == "angle":
-        label = "flexion angle"
-        tag = ['HALong_max', 'HAShort_max', 'KALong_', 'KAShort_', 'AALong_', 'AAShort_']
-    elif opt == "momentum":
-        label = "momentum"
-        tag = ['HMLong_', 'HMShort_', 'KMLong_', 'KMShort_', 'AMLong_', 'AMShort_']
+# """
+# paired_t_test
+# """
+# def paired_t_test_with_visualization(opt):
+#     tag = []
+#     label = ""
+#     if opt == "angle":
+#         label = "flexion angle"
+#         tag = ['HALong_max', 'HAShort_max', 'KALong_', 'KAShort_', 'AALong_', 'AAShort_']
+#     elif opt == "momentum":
+#         label = "momentum"
+#         tag = ['HMLong_', 'HMShort_', 'KMLong_', 'KMShort_', 'AMLong_', 'AMShort_']
+#
+#     """visualization"""
+#     plt.subplot(1, 3, 1)
+#     plt.boxplot([data[tag[0]], data[tag[1]]])
+#     plt.title(f"Hip joint\n{label}")
+#     plt.xticks([1, 2], ["Longer", "Shorter"])
+#
+#     plt.subplot(1, 3, 2)
+#     plt.boxplot([data[tag[2]], data[tag[3]]])
+#     plt.title(f"Knee joint\n{label}")
+#     plt.xticks([1, 2], ["Longer", "Shorter"])
+#
+#     plt.subplot(1, 3, 3)
+#     plt.boxplot([data[tag[4]], data[tag[5]]])
+#     plt.title(f"Ankle joint\n{label}")
+#     plt.xticks([1, 2], ["Longer", "Shorter"])
+#
+#     plt.subplots_adjust(wspace=0.5)
+#     plt.show()
+#
+#     """paired-t-test"""
+#     statistic, p_value = ttest_rel(
+#         data[tag[0]], data[tag[1]])
+#     print(f"statistic for hip joint {label} : {statistic:.5f}")
+#     print(f"p_value for hip joint {label} = {p_value:.5f}")
+#
+#     statistic, p_value = ttest_rel(
+#         data[tag[2]], data[tag[3]])
+#     print(f"statistic for knee joint {label} : {statistic:.5f}")
+#     print(f"p_value for knee joint {label} = {p_value:.5f}")
+#
+#     statistic, p_value = ttest_rel(
+#         data[tag[4]], data[tag[5]])
+#     print(f"statistic for ankle joint {label} : {statistic:.5f}")
+#     print(f"p_value for ankle joint {label} = {p_value:.5f}")
+#
+# # paired_t_test_with_visualization("momentum")
+# # paired_t_test_with_visualization("angle")
+#
+# """
+# Wilcoxon test
+# """
+# temp_data = data[data['LLD(ABS)']>=15.75]
+# print(scipy.stats.wilcoxon(temp_data['HMLong_'], temp_data['HMShort_'], alternative='greater'))
+# print(scipy.stats.wilcoxon(temp_data['HMLong_'], temp_data['HMShort_']))
 
-    """visualization"""
-    plt.subplot(1, 3, 1)
-    plt.boxplot([data[tag[0]], data[tag[1]]])
-    plt.title(f"Hip joint\n{label}")
-    plt.xticks([1, 2], ["Longer", "Shorter"])
-
-    plt.subplot(1, 3, 2)
-    plt.boxplot([data[tag[2]], data[tag[3]]])
-    plt.title(f"Knee joint\n{label}")
-    plt.xticks([1, 2], ["Longer", "Shorter"])
-
-    plt.subplot(1, 3, 3)
-    plt.boxplot([data[tag[4]], data[tag[5]]])
-    plt.title(f"Ankle joint\n{label}")
-    plt.xticks([1, 2], ["Longer", "Shorter"])
-
-    plt.subplots_adjust(wspace=0.5)
-    plt.show()
-
-    """paired-t-test"""
-    statistic, p_value = ttest_rel(
-        data[tag[0]], data[tag[1]])
-    print(f"statistic for hip joint {label} : {statistic:.5f}")
-    print(f"p_value for hip joint {label} = {p_value:.5f}")
-
-    statistic, p_value = ttest_rel(
-        data[tag[2]], data[tag[3]])
-    print(f"statistic for knee joint {label} : {statistic:.5f}")
-    print(f"p_value for knee joint {label} = {p_value:.5f}")
-
-    statistic, p_value = ttest_rel(
-        data[tag[4]], data[tag[5]])
-    print(f"statistic for ankle joint {label} : {statistic:.5f}")
-    print(f"p_value for ankle joint {label} = {p_value:.5f}")
-
-# paired_t_test_with_visualization("momentum")
-# paired_t_test_with_visualization("angle")
-#gkgk
+"""
+demographic table 만들기 by tableone
+"""
+col_tableone = ['sex', 'age', 'Rt.', 'Lt.', 'long(1:R, 2:L)', 'LLD(ABS)', 'LLD(ratio, %)']
+categorical_tableone = ['sex', 'long(1:R, 2:L)']
+mytable = TableOne(data, col_tableone, categorical_tableone)
+print(mytable.tabulate(tablefmt="grid"))
