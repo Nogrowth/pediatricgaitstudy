@@ -8,6 +8,8 @@ from scipy.stats import ttest_rel
 from sklearn.metrics import roc_curve, auc
 from scipy.integrate import simps
 from tableone import TableOne
+plt.rcParams["font.family"] = "arial"
+plt.rc('font', size=8)
 
 data = pd.read_excel("./data/Data.xlsx")
 data = data[:26]
@@ -26,12 +28,12 @@ data.rename(columns={'SL_Long':'SLl', 'SL_Short':'SLs',
 # plt.boxplot([data.StPDl, data.StPDs])
 # plt.title("stance phase\nduration")
 # plt.xticks([1, 2], ["Longer", "Shorter"])
-#
+
 # plt.subplot(1, 3, 3)
 # plt.boxplot([data.SwPDl, data.SwPDs])
 # plt.title("swing phase\nduration")
 # plt.xticks([1, 2], ["Longer", "Shorter"])
-#
+
 # plt.subplots_adjust(wspace=0.5)
 #
 # plt.show()
@@ -109,12 +111,12 @@ ROC 커브 및 AUC 구하기
 # for _ in np.arange(y_pred_abs.min(), y_pred_abs.max(), 0.01): # pred 를 thresholds 처럼 사용했음
 #     tpr.append(get_tpr(y_true_SL,y_pred_abs,_ ))
 #     fpr.append(get_fpr(y_true_SL,y_pred_abs,_ ))
-# plt.plot(fpr, tpr)
-# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='skyblue', alpha=.5)
+# plt.plot(fpr, tpr, color='black')
+# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='gray', alpha=.2)
 # auc = np.trapz(fpr, tpr, dx=0.01, axis=-1)
 # auc = round(1+auc, 3)
 # plt.text(x=0.5, y=0.2, s= f"AUC : {auc}")
-# plt.scatter(fpr, tpr)
+# plt.scatter(fpr, tpr, s=1)
 # plt.plot([0, 1], [0, 1])
 # plt.xlabel('False-Positive-Rate')
 # plt.ylabel('True-Positive-Rate')
@@ -127,12 +129,12 @@ ROC 커브 및 AUC 구하기
 # for _ in np.arange(y_pred_ratio.min(), y_pred_ratio.max(), 0.01): # pred 를 thresholds 처럼 사용했음
 #     tpr.append(get_tpr(y_true_SL,y_pred_ratio,_ ))
 #     fpr.append(get_fpr(y_true_SL,y_pred_ratio,_ ))
-# plt.plot(fpr, tpr)
-# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='skyblue', alpha=.5)
+# plt.plot(fpr, tpr, color='black')
+# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='gray', alpha=.2)
 # auc = np.trapz(fpr, tpr, dx=0.01, axis=-1)
 # auc = round(1+auc, 3)
 # plt.text(x=0.5, y=0.2, s= f"AUC : {auc}")
-# plt.scatter(fpr, tpr)
+# plt.scatter(fpr, tpr, s=1)
 # plt.plot([0, 1], [0, 1])
 # plt.xlim(0, 1)
 # plt.ylim(0, 1)
@@ -143,12 +145,12 @@ ROC 커브 및 AUC 구하기
 # for _ in np.arange(y_pred_abs.min(), y_pred_abs.max(), 0.01): # pred 를 thresholds 처럼 사용했음
 #     tpr.append(get_tpr(y_true_StPD,y_pred_abs,_ ))
 #     fpr.append(get_fpr(y_true_StPD,y_pred_abs,_ ))
-# plt.plot(fpr, tpr)
-# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='skyblue', alpha=.5)
+# plt.plot(fpr, tpr, color='black')
+# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='gray', alpha=.2)
 # auc = np.trapz(fpr, tpr, dx=0.01, axis=-1)
 # auc = round(1+auc, 3)
 # plt.text(x=0.5, y=0.2, s= f"AUC : {auc}")
-# plt.scatter(fpr, tpr)
+# plt.scatter(fpr, tpr, s=1)
 # plt.plot([0, 1], [0, 1])
 # plt.xlim(0, 1)
 # plt.ylim(0, 1)
@@ -159,12 +161,12 @@ ROC 커브 및 AUC 구하기
 # for _ in np.arange(y_pred_ratio.min(), y_pred_ratio.max(), 0.01): # pred 를 thresholds 처럼 사용했음
 #     tpr.append(get_tpr(y_true_StPD,y_pred_ratio,_ ))
 #     fpr.append(get_fpr(y_true_StPD,y_pred_ratio,_ ))
-# plt.plot(fpr, tpr)
-# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='skyblue', alpha=.5)
+# plt.plot(fpr, tpr, color='black')
+# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='gray', alpha=.2)
 # auc = np.trapz(fpr, tpr, dx=0.01, axis=-1)
 # auc = round(1+auc, 3)
 # plt.text(x=0.5, y=0.2, s= f"AUC : {auc}")
-# plt.scatter(fpr, tpr)
+# plt.scatter(fpr, tpr, s=1)
 # plt.plot([0, 1], [0, 1])
 # plt.xlim(0, 1)
 # plt.ylim(0, 1)
@@ -175,12 +177,12 @@ ROC 커브 및 AUC 구하기
 # for _ in np.arange(y_pred_abs.min(), y_pred_abs.max(), 0.01): # pred 를 thresholds 처럼 사용했음
 #     tpr.append(get_tpr(y_true_SwPD,y_pred_abs,_ ))
 #     fpr.append(get_fpr(y_true_SwPD,y_pred_abs,_ ))
-# plt.plot(fpr, tpr)
-# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='skyblue', alpha=.5)
+# plt.plot(fpr, tpr, color='black')
+# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='gray', alpha=.2)
 # auc = np.trapz(fpr, tpr, dx=0.01, axis=-1)
 # auc = round(1+auc, 3)
 # plt.text(x=0.5, y=0.2, s= f"AUC : {auc}")
-# plt.scatter(fpr, tpr)
+# plt.scatter(fpr, tpr, s=1)
 # plt.plot([0, 1], [0, 1])
 # plt.xlim(0, 1)
 # plt.ylim(0, 1)
@@ -191,12 +193,12 @@ ROC 커브 및 AUC 구하기
 # for _ in np.arange(y_pred_ratio.min(), y_pred_ratio.max(), 0.01): # pred 를 thresholds 처럼 사용했음
 #     tpr.append(get_tpr(y_true_SwPD,y_pred_ratio,_ ))
 #     fpr.append(get_fpr(y_true_SwPD,y_pred_ratio,_ ))
-# f = plt.plot(fpr, tpr)
-# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='skyblue', alpha=.5)
+# plt.plot(fpr, tpr, color='black')
+# plt.fill_between(fpr[0:len(fpr)], tpr, 0, facecolor='gray', alpha=.2)
 # auc = np.trapz(fpr, tpr, dx=0.01, axis=-1)
 # auc = round(1+auc, 3)
 # plt.text(x=0.5, y=0.2, s= f"AUC : {auc}")
-# plt.scatter(fpr, tpr)
+# plt.scatter(fpr, tpr, s=1)
 # plt.plot([0, 1], [0, 1])
 # plt.xlim(0, 1)
 # plt.ylim(0, 1)
@@ -206,7 +208,7 @@ ROC 커브 및 AUC 구하기
 # plt.show()
 
 """
-Threshold 구하기
+Threshold 구하기 : 해당 threshold에서 민감도/특이도 어떻게 되는지 기능 추가
 """
 # y_true_SL = data['SLDx.'].values
 # y_true_StPD = data['StPDDx.'].values
@@ -335,68 +337,68 @@ Threshold 구하기
 # plt.subplots_adjust(hspace=0.3, wspace=0.2)
 # plt.show()
 
-# """
-# paired_t_test
-# """
-# def paired_t_test_with_visualization(opt):
-#     tag = []
-#     label = ""
-#     if opt == "angle":
-#         label = "flexion angle"
-#         tag = ['HALong_max', 'HAShort_max', 'KALong_', 'KAShort_', 'AALong_', 'AAShort_']
-#     elif opt == "momentum":
-#         label = "momentum"
-#         tag = ['HMLong_', 'HMShort_', 'KMLong_', 'KMShort_', 'AMLong_', 'AMShort_']
-#
-#     """visualization"""
-#     plt.subplot(1, 3, 1)
-#     plt.boxplot([data[tag[0]], data[tag[1]]])
-#     plt.title(f"Hip joint\n{label}")
-#     plt.xticks([1, 2], ["Longer", "Shorter"])
-#
-#     plt.subplot(1, 3, 2)
-#     plt.boxplot([data[tag[2]], data[tag[3]]])
-#     plt.title(f"Knee joint\n{label}")
-#     plt.xticks([1, 2], ["Longer", "Shorter"])
-#
-#     plt.subplot(1, 3, 3)
-#     plt.boxplot([data[tag[4]], data[tag[5]]])
-#     plt.title(f"Ankle joint\n{label}")
-#     plt.xticks([1, 2], ["Longer", "Shorter"])
-#
-#     plt.subplots_adjust(wspace=0.5)
-#     plt.show()
-#
-#     """paired-t-test"""
-#     statistic, p_value = ttest_rel(
-#         data[tag[0]], data[tag[1]])
-#     print(f"statistic for hip joint {label} : {statistic:.5f}")
-#     print(f"p_value for hip joint {label} = {p_value:.5f}")
-#
-#     statistic, p_value = ttest_rel(
-#         data[tag[2]], data[tag[3]])
-#     print(f"statistic for knee joint {label} : {statistic:.5f}")
-#     print(f"p_value for knee joint {label} = {p_value:.5f}")
-#
-#     statistic, p_value = ttest_rel(
-#         data[tag[4]], data[tag[5]])
-#     print(f"statistic for ankle joint {label} : {statistic:.5f}")
-#     print(f"p_value for ankle joint {label} = {p_value:.5f}")
-#
-# # paired_t_test_with_visualization("momentum")
-# # paired_t_test_with_visualization("angle")
-#
-# """
-# Wilcoxon test
-# """
+"""
+paired_t_test
+"""
+def paired_t_test_with_visualization(opt):
+    tag = []
+    label = ""
+    if opt == "angle":
+        label = "flexion angle"
+        tag = ['HALong_max', 'HAShort_max', 'KALong_', 'KAShort_', 'AALong_', 'AAShort_']
+    elif opt == "momentum":
+        label = "momentum"
+        tag = ['HMLong_', 'HMShort_', 'KMLong_', 'KMShort_', 'AMLong_', 'AMShort_']
+
+    """visualization"""
+    plt.subplot(1, 3, 1)
+    plt.boxplot([data[tag[0]], data[tag[1]]])
+    plt.title(f"Hip joint\n{label}")
+    plt.xticks([1, 2], ["Longer", "Shorter"])
+
+    plt.subplot(1, 3, 2)
+    plt.boxplot([data[tag[2]], data[tag[3]]])
+    plt.title(f"Knee joint\n{label}")
+    plt.xticks([1, 2], ["Longer", "Shorter"])
+
+    plt.subplot(1, 3, 3)
+    plt.boxplot([data[tag[4]], data[tag[5]]])
+    plt.title(f"Ankle joint\n{label}")
+    plt.xticks([1, 2], ["Longer", "Shorter"])
+
+    plt.subplots_adjust(wspace=0.5)
+    plt.show()
+
+    """paired-t-test"""
+    statistic, p_value = ttest_rel(
+        data[tag[0]], data[tag[1]])
+    print(f"statistic for hip joint {label} : {statistic:.5f}")
+    print(f"p_value for hip joint {label} = {p_value:.5f}")
+
+    statistic, p_value = ttest_rel(
+        data[tag[2]], data[tag[3]])
+    print(f"statistic for knee joint {label} : {statistic:.5f}")
+    print(f"p_value for knee joint {label} = {p_value:.5f}")
+
+    statistic, p_value = ttest_rel(
+        data[tag[4]], data[tag[5]])
+    print(f"statistic for ankle joint {label} : {statistic:.5f}")
+    print(f"p_value for ankle joint {label} = {p_value:.5f}")
+
+paired_t_test_with_visualization("momentum")
+paired_t_test_with_visualization("angle")
+
+"""
+Wilcoxon test
+"""
 # temp_data = data[data['LLD(ABS)']>=15.75]
 # print(scipy.stats.wilcoxon(temp_data['HMLong_'], temp_data['HMShort_'], alternative='greater'))
 # print(scipy.stats.wilcoxon(temp_data['HMLong_'], temp_data['HMShort_']))
 
-"""
-demographic table 만들기 by tableone
-"""
-col_tableone = ['sex', 'age', 'Rt.', 'Lt.', 'long(1:R, 2:L)', 'LLD(ABS)', 'LLD(ratio, %)']
-categorical_tableone = ['sex', 'long(1:R, 2:L)']
-mytable = TableOne(data, col_tableone, categorical_tableone)
-print(mytable.tabulate(tablefmt="grid"))
+# """
+# demographic table 만들기 by tableone
+# """
+# col_tableone = ['sex', 'age', 'Rt.', 'Lt.', 'long(1:R, 2:L)', 'LLD(ABS)', 'LLD(ratio, %)']
+# categorical_tableone = ['sex', 'long(1:R, 2:L)']
+# mytable = TableOne(data, col_tableone, categorical_tableone)
+# print(mytable.tabulate(tablefmt="grid"))
